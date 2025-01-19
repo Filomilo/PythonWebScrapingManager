@@ -2,15 +2,20 @@ from typing import Any
 import urllib.parse
 from bs4 import BeautifulSoup, ResultSet 
 import requests
+from datetime import date, timedelta
 import logging
-from WebScraper import WebScraper 
+from WebScraper import WebScraper
+from WebsitesModules.Imdb.ImdbMediaDataExtraction import extractRatingFromPage, extractReleaseDateFromPage, extractRunTimeFromPage, extractTileFromPage 
 logger: logging.Logger= logging.Logger(__name__)
 webScraper: WebScraper= WebScraper()
 
-class ImdbInformation:
-    name: str
-    def __init__(name):
-        self.name=name
+class ImdbMediaInformation:
+    title: str
+    releaseDate: date
+    rating: float
+    runtime: timedelta
+    def __init__(self,):
+        pass
 
 class ImdbSeachElement:
     def __init__(self,title,href):
@@ -25,7 +30,6 @@ def _retrieveUrlSearchImdb(movieName: str) -> str:
     return encoded
 
 def getImdbSeachElementFromHtmlElement(htmlElement:BeautifulSoup)->ImdbSeachElement:
-    #get TItle
     titleElement:BeautifulSoup = htmlElement.find(attrs={"class": "ipc-metadata-list-summary-item__t"})
     title:str=titleElement.contents[0]
     href:str=titleElement["href"]
@@ -45,4 +49,21 @@ def searchMovieName(movieName: str)->list[ImdbSeachElement]:
     listOfMovies:list[ImdbSeachElement]=  retriveMovieListFromHtmlContent(htmlContent)
     logger.debug(f"retrives movies: {listOfMovies}")
     return listOfMovies
+
+def retriveMediaInformaionByUrl(url: str)->ImdbMediaInformation:
+    htmlContent: str= webScraper.retriveHtmlFromUrl(url=url)
+    soup:BeautifulSoup=BeautifulSoup(htmlContent,"html.parser")
+    imdbMediaInformation: ImdbMediaInformation=ImdbMediaInformation()
+    imdbMediaInformation.title= extractTileFromPage(soup)
+    imdbMediaInformation.rating=extractRatingFromPage(soup)
+    imdbMediaInformation.releaseDate=extractReleaseDateFromPage(soup)
+    imdbMediaInformation.runtime=extractRunTimeFromPage(soup)
+    return imdbMediaInformation
+
+
+def retriveMediaInformationByUrl(serachby: str|ImdbSeachElement)->ImdbMediaInformation:
+    if isinstance(serachby,str):
+        return retriveMediaInformaionByUrl(serachby)
+    raise ValueError("Wrong argument")
+
 
