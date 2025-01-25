@@ -35,7 +35,7 @@ def getImdbSeachElementFromHtmlElement(htmlElement:BeautifulSoup)->ImdbSeachElem
     href:str=titleElement["href"]
     return ImdbSeachElement(title=title,href=href)
 
-def retriveMovieListFromHtmlContent(html_content: str)-> list[ImdbSeachElement]:
+def retriveMovieListFromHtmlSearchResult(html_content: str)-> list[ImdbSeachElement]:
     print(html_content)
     soup:BeautifulSoup = BeautifulSoup(html_content, 'html.parser')
     htmlSerachResultElements:ResultSet[Any]= soup.find_all(attrs={'class': 'find-title-result'})
@@ -46,7 +46,7 @@ def retriveMovieListFromHtmlContent(html_content: str)-> list[ImdbSeachElement]:
 def searchMovieName(movieName: str)->list[ImdbSeachElement]:
     urlToSearch:str= _retrieveUrlSearchImdb(movieName)
     htmlContent: str= webScraper.retriveHtmlFromUrl(url=urlToSearch)
-    listOfMovies:list[ImdbSeachElement]=  retriveMovieListFromHtmlContent(htmlContent)
+    listOfMovies:list[ImdbSeachElement]=  retriveMovieListFromHtmlSearchResult(htmlContent)
     logger.debug(f"retrives movies: {listOfMovies}")
     return listOfMovies
 
