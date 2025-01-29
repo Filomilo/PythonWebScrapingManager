@@ -3,20 +3,28 @@ from typing import Optional
 import urllib.parse
 from bs4 import BeautifulSoup 
 import requests
+from Models.LanguageCodes import LanguageCode
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 class WebScraper(object):
-    def __new__(cls):
+    def __new__(cls, defaultLanguageCode:LanguageCode=LanguageCode.EN_US):
         if not hasattr(cls, 'instance'):
             cls.instance = super(WebScraper, cls).__new__(cls)
+            cls.defaultLangCode=defaultLanguageCode
         return cls.instance
     
-    def retriveHtmlFromUrl(self, url: str)->str:
+    
+    
+
+    def retriveHtmlFromUrl(self, url: str, languageCode:Optional[LanguageCode]=None)->str:
+        langCode: LanguageCode= self.defaultLangCode
+        if languageCode is not None:
+            langCode=languageCode
         headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    "Accept-Language": "en-US"
+    "Accept-Language": langCode.value
     }
         response : requests.Response = requests.get(url,headers=headers)
         if response.status_code != 200:
