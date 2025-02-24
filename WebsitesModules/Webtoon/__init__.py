@@ -1,0 +1,1 @@
+from .Webtoon import retiveComicPageInfo
