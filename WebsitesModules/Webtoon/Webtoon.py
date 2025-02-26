@@ -4,9 +4,12 @@ from bs4 import BeautifulSoup, ResultSet
 import requests
 from datetime import date, timedelta
 import logging
-from WebScraper import WebScraper
+
+from . import WebtoonsDataExtraction
 from .WebtoonDataTypes import WebtoonMainPageInfo, WebtoonComicInfo, WebtoonPageEntry
-import WebsitesModules.Webtoon.WebtoonsDataExtraction as WebtoonsDataExtraction
+
+from ...WebScraper import WebScraper
+
 logger: logging.Logger= logging.Logger(__name__)
 webScraper: WebScraper= WebScraper()
 

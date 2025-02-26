@@ -1,3 +1,3 @@
 from . import Imdb
-
-__all__ = []
+from . import Webtoon
+__all__ = [Imdb]

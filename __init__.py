@@ -1,4 +1,4 @@
-import WebsitesModules
+from . import WebsitesModules
 
 WebsitesModules = WebsitesModules 
 

@@ -3,11 +3,14 @@ from typing import Optional
 import urllib.parse
 from bs4 import BeautifulSoup 
 import requests
-from Models.LanguageCodes import LanguageCode
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+
+from FeedGenerator.Websites.PythonWebScrapingManager.Models import LanguageCode
+
+
 class WebScraper(object):
     def __new__(cls, defaultLanguageCode:LanguageCode=LanguageCode.EN_US):
         if not hasattr(cls, 'instance'):

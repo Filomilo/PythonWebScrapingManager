@@ -20,6 +20,7 @@ class WebtoonPageEntry:
     date: datetime
     likes: int
     tx: int
+    url: str
 
 
 @attr.define

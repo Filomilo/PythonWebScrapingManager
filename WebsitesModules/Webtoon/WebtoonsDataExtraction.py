@@ -1,7 +1,9 @@
 from dataclasses import replace
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, List
 from bs4 import BeautifulSoup, ResultSet, Tag
+
+from zoneinfo import ZoneInfo
 from selenium.webdriver.support.expected_conditions import none_of
 
 from .WebtoonDataTypes import WebtoonPageEntry
@@ -94,12 +96,18 @@ def extractPageEntries(soup: BeautifulSoup)-> List[WebtoonPageEntry]:
         return []
 def extractPageEntry(soup: BeautifulSoup)-> WebtoonPageEntry:
     try:
+        href:str=soup.find("a")['href']
+        date_str = soup.find(attrs={'class': 'date'}).get_text().replace("\n","").replace("\t","")
+        date = datetime.strptime(date_str, "%b %d, %Y")
+        date=date.replace(tzinfo=timezone.utc)
         return WebtoonPageEntry(
             thumbnailUrl="",
             title=soup.find("span",attrs={'class': 'subj'}).get_text(),
-            date=datetime.strptime(soup.find(attrs={'class': 'date'}).get_text(), "%b %d, %Y"),
+            date=date,
             likes= int (soup.find('span',attrs={'class': 'like_area'}).get_text(strip=True).replace('like','')),
-            tx=int(soup.find('span',attrs={'class': 'tx'}).get_text().replace('#',''))
+            tx=int(soup.find('span',attrs={'class': 'tx'}).get_text().replace('#','')),
+            url=href
         )
     except BaseException as ex:
         return WebtoonPageEntry(thumbnailUrl="",title=f"ERROR: [{ex}]",date=datetime(day=1,month=1,year=1900),likes=-1,tx=-1)
+
