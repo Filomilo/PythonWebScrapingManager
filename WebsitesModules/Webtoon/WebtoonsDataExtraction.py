@@ -104,10 +104,10 @@ def extractPageEntry(soup: BeautifulSoup)-> WebtoonPageEntry:
             thumbnailUrl="",
             title=soup.find("span",attrs={'class': 'subj'}).get_text(),
             date=date,
-            likes= int (soup.find('span',attrs={'class': 'like_area'}).get_text(strip=True).replace('like','')),
+            likes= int (soup.find('span',attrs={'class': 'like_area'}).get_text(strip=True).replace('like','').replace(",","")),
             tx=int(soup.find('span',attrs={'class': 'tx'}).get_text().replace('#','')),
             url=href
         )
     except BaseException as ex:
-        return WebtoonPageEntry(thumbnailUrl="",title=f"ERROR: [{ex}]",date=datetime(day=1,month=1,year=1900),likes=-1,tx=-1)
+        return WebtoonPageEntry(url="",thumbnailUrl="",title=f"ERROR: [{ex}]",date=datetime(day=1,month=1,year=1900),likes=-1,tx=-1)
 
