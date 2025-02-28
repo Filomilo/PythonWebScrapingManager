@@ -5,7 +5,9 @@ import requests
 from datetime import date, timedelta
 import logging
 
-from FeedGenerator.Websites.PythonWebScrapingManager.WebScraper import WebScraper
+from WebScraper import WebScraper
+from WebsitesModules.Imdb.ImdbMediaDataExtraction import extractTileFromPage, extractRatingFromPage, \
+    extractReleaseDateFromPage, extractRunTimeFromPage
 
 logger: logging.Logger= logging.Logger(__name__)
 webScraper: WebScraper= WebScraper()
