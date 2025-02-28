@@ -1,0 +1,12 @@
+MoviesToRetrive.txt
+../test.html
+/WebsitesModules/Filmweb/__pycache__
+/__pycache__
+/Models/__pycache__
+/Tests/UnitTests/__pycache__
+/WebsitesModules/Imdb/__pycache__
+/WebsitesModules/__pycache__
+/Tests/UnitTests/__pycache__
+/WebsitesModules/Filmweb/__pycache__
+/WebsitesModules/Webtoon/__pycache__
+*.pyc
