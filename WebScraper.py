@@ -8,7 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
-from FeedGenerator.Websites.PythonWebScrapingManager.Models import LanguageCode
+from Models import LanguageCode
 
 
 class WebScraper(object):

@@ -5,10 +5,10 @@ import requests
 from datetime import date, timedelta
 import logging
 
+from WebScraper import WebScraper
 from . import WebtoonsDataExtraction
 from .WebtoonDataTypes import WebtoonMainPageInfo, WebtoonComicInfo, WebtoonPageEntry
 
-from ...WebScraper import WebScraper
 
 logger: logging.Logger= logging.Logger(__name__)
 webScraper: WebScraper= WebScraper()
