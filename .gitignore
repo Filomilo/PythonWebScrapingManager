@@ -2,3 +2,14 @@
 PythonWebScrapingManager.egg-info/
 build/
 test.html
+/tests/UnitTests/__pycache__
+/PythonWebScrapingManager/.venv
+/PythonWebScrapingManager/.venv
+/PythonWebScrapingManager_filomilo/.venv
+/PythonWebScrapingManager_filomilo/.vscode
+/PythonWebScrapingManager/.venv
+/dist
+/.vscode
+/PythonWebScrapingManager/.venv
+/tests/__pycache__
+/tests/__pycache__
