@@ -3,7 +3,8 @@ from datetime import datetime, timezone
 
 from bs4 import BeautifulSoup, Tag, ResultSet
 
-from WebsitesModules.Dziennikustawgov.DziennikustawgovDataTypes import DziennikustawgovDocument
+from FeedGenerator.Websites.PythonWebScrapingManager.WebsitesModules.Dziennikustawgov.DziennikustawgovDataTypes import \
+    DziennikustawgovDocument
 
 
 def ExtractListOfDocuments(soup: BeautifulSoup)->list[DziennikustawgovDocument]:
@@ -18,12 +19,13 @@ def ExtractListOfDocuments(soup: BeautifulSoup)->list[DziennikustawgovDocument]:
 def extractSigngleDocuments(soup: BeautifulSoup)->DziennikustawgovDocument:
     tds=soup.find_all('td')
     positonStr:str=tds[0].get_text().replace('\n','').replace('\t','').replace('\r','')
-    dateStr=tds[3].get_text().replace('\n','').replace('\t','').replace('\r','').replace(' ','')
+    dateStr=tds[2].get_text().replace('\n','').replace('\t','').replace('\r','').replace(' ','')
     titleStr:str=tds[1].get_text().replace('\n','').replace('\t','').replace('\r','')
-    pdfUrlStr:str="https://dziennikustaw.gov.pl"+tds[2].find("a")['href'].replace('\n','').replace('\t','').replace('\r','')
+    pdfUrlStr:str="https://dziennikustaw.gov.pl"+tds[3].find("a")['href'].replace('\n','').replace('\t','').replace('\r','')
     return DziennikustawgovDocument(
         position= int(positonStr),
         title=titleStr,
         pdfUrl=pdfUrlStr,
-        date=datetime.strptime(dateStr, "%Y-%m-%d")
+        date=datetime.strptime(dateStr, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+
     )
