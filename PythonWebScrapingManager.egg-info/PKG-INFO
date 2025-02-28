@@ -1,9 +1,0 @@
-Metadata-Version: 2.1
-Name: PythonWebScrapingManager
-Version: 1.0
-Summary: My helper module for websraping
-Author: Filomilo
-Author-email: fbotowiec00@gmail.com
-Requires-Dist: beautifulsoup4
-Requires-Dist: Requests
-Requires-Dist: selenium
