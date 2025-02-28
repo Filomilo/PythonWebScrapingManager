@@ -9,3 +9,4 @@ test.html
 /Tests/UnitTests/__pycache__
 /WebsitesModules/Filmweb/__pycache__
 /WebsitesModules/Webtoon/__pycache__
+*.pyc

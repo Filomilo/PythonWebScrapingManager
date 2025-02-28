@@ -35,8 +35,8 @@ def extractAuthor(soup: BeautifulSoup)-> str:
 
 def extractGenre(soup: BeautifulSoup)-> List[str]:
     try:
-        genresElements: []= soup.find_all('h2',attrs={'class': 'genre'})
-        genres= [x.get_text(strip=True) for x in genresElements]
+        genresElements: []= soup.find_all(attrs={'class': 'genre'})
+        genres= list(set(x.get_text(strip=True) for x in genresElements))
         return genres 
     except BaseException as ex:
         return f"error getting genras : [{ex}]"

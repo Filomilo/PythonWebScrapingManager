@@ -6,6 +6,8 @@ from datetime import date, timedelta
 import logging
 
 from WebScraper import WebScraper
+from WebsitesModules.Imdb.ImdbMediaDataExtraction import extractTileFromPage, extractRatingFromPage, \
+    extractReleaseDateFromPage, extractRunTimeFromPage
 
 logger: logging.Logger= logging.Logger(__name__)
 webScraper: WebScraper= WebScraper()
