@@ -2,9 +2,12 @@ import logging
 
 from bs4 import BeautifulSoup
 
-from WebScraper import WebScraper
-from WebsitesModules.Dziennikustawgov.DziennikustawgovDataExtraction import ExtractListOfDocuments
-from WebsitesModules.Dziennikustawgov.DziennikustawgovDataTypes import DziennikustawgovDocument
+from FeedGenerator.Websites.PythonWebScrapingManager.WebScraper import WebScraper
+from FeedGenerator.Websites.PythonWebScrapingManager.WebsitesModules.Dziennikustawgov.DziennikustawgovDataExtraction import \
+    ExtractListOfDocuments
+from FeedGenerator.Websites.PythonWebScrapingManager.WebsitesModules.Dziennikustawgov.DziennikustawgovDataTypes import \
+    DziennikustawgovDocument
+
 logger: logging.Logger= logging.Logger(__name__)
 webScraper: WebScraper= WebScraper()
 
