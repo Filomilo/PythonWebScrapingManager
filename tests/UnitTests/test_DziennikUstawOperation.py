@@ -39,3 +39,9 @@ def test_documentRerival():
                                  pdfUrl='https://dziennikustaw.gov.pl/DU/2012/1551/D2012000155101.pdf',
                                  date=datetime(2012, 12, 31, 0, 0, tzinfo=timezone.utc),
                                  position=1551)]
+
+
+def test_documentFromSectionRetrival():
+    url:str="https://dziennikustaw.gov.pl/DU/rok/2012"
+    documentsRecevied: list[DziennikustawgovDocument]= Dziennikustawgov.getDocumentsListInWholeSection(url)
+    assert len(documentsRecevied)==1555

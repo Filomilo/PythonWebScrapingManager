@@ -1,9 +1,11 @@
 from datetime import datetime, timezone
 
 
-from bs4 import BeautifulSoup, ResultSet
+from bs4 import BeautifulSoup, ResultSet, Tag, PageElement, NavigableString
 
 from .DziennikustawgovDataTypes import DziennikustawgovDocument
+from ...Tools.StringOperations import cleanUpWhiteCharacters
+
 
 def ExtractListOfDocuments(soup: BeautifulSoup)->list[DziennikustawgovDocument]:
     tableBody=soup.find('tbody')
@@ -34,7 +36,7 @@ def extractSigngleDocuments(soup: BeautifulSoup,
 
 
 
-    positonStr:str=tds[postionIndex].get_text().replace('\n','').replace('\t','').replace('\r','')
+    positonStr:str=cleanUpWhiteCharacters(tds[postionIndex].get_text())
     dateStr=tds[dateIndex].get_text().replace('\n','').replace('\t','').replace('\r','').replace(' ','')
     titleStr:str=tds[titleIndex].get_text().replace('\n','').replace('\t','').replace('\r','')
     pdfUrlStr:str="https://dziennikustaw.gov.pl"+tds[pdfUrlIndex].find("a")['href'].replace('\n','').replace('\t','').replace('\r','')
@@ -45,3 +47,8 @@ def extractSigngleDocuments(soup: BeautifulSoup,
         date=datetime.strptime(dateStr, "%Y-%m-%d").replace(tzinfo=timezone.utc)
 
     )
+def extractPagesUrls(soup:BeautifulSoup)->list[str]:
+    pagesSection:BeautifulSoup=soup.find('div',attrs={'class':'frigth'})
+    aElmenents: ResultSet = pagesSection.find_all('a')
+    urls: list[str]= ["https://dziennikustaw.gov.pl"+x['href'] for x in aElmenents]
+    return urls
