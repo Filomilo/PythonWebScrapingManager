@@ -98,7 +98,7 @@ def extractPageEntry(soup: BeautifulSoup)-> WebtoonPageEntry:
         date=date.replace(tzinfo=timezone.utc)
         return WebtoonPageEntry(
             thumbnailUrl="",
-            title=soup.find("span",attrs={'class': 'subj'}).get_text(),
+            title=soup.find("span",attrs={'class': 'subj'}).find("span").get_text(),
             date=date,
             likes= int (soup.find('span',attrs={'class': 'like_area'}).get_text(strip=True).replace('like','').replace(",","")),
             tx=int(soup.find('span',attrs={'class': 'tx'}).get_text().replace('#','')),
